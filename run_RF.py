@@ -129,8 +129,7 @@ from sklearn import metrics
 from sklearn import preprocessing
 import warnings
 warnings.filterwarnings("ignore")
-
-### 设置模型优化的基础模型和超参数池
+####
 def set_tune_params(max_features=[1.0], max_samples=[1.0], cpu=6):
     tune_params = {
         'Bagging_kn':['ensemble.BaggingClassifier()', 'roc_auc', 
@@ -181,37 +180,8 @@ def tune_model(X, y, cv_split, model, param_grid, scoring='roc_auc'):
 
 ### import data
 
-
-# data = pd.read_csv('data_all.tsv', index_col=0,sep='\t')
-# mapper = {"IrAE": 1,"non_IrAE" : 0}
-# data["group"] = data["IrAE"].map(mapper)
-#group=data["group"].ravel()
-
-# mapper = {'Hakozaki_study':0,
-# 'Zhang_study':1,
-# 'Cascone_study':2,
-# 'Chau_study':3,
-# 'Dubin_study':4,
-# 'McCulloch_study':5}
-# data["study"] = data["Study"].map(mapper)
-#
-# mapper = {
-# 'anti_PD1':0,
-# 'Combined':2,
-# 'anti_CTLA' :1}
-# data["Treatment"] = data["Treatment"].map(mapper)
-
-# ### read features
-# SEED, best_auc, best_features, best_plot_data, feature_rank = pickle.load(open('../IFE/model.pkl', 'rb'))
-# del best_features[15]
-# #best_features.append('study')
-# data = data.loc[:, best_features]
-
-
-
 #def dataset_reader(): # ds: an, ca ,cn
-#study_ids = ['Cascone','Chau','Dubin', 'Hakozaki', 'McCulloch', 'Zhang'] 
-#study_ids = ['Derosa','Frankel', 'Lee', 'Matson','McCulloch','Routy'] 
+
 data = pd.read_csv('dat_LOSO.tsv', index_col=0,sep='\t')
 study_ids=list(set([x.split('_')[1] for x in data.index]))
 
@@ -225,20 +195,7 @@ SEED, best_auc, best_features, best_plot_data, feature_rank = pickle.load(open('
 data = data.loc[:, best_features]
 #return study_ids, control_state, data
 
-
 RANDOM_SEED=2022
-# index = np.array([i.split('_')[1] for i in data.index])=='Cascone'
-# X = data.loc[index, :].values
-# y = np.array([0 if i.split('_')[3]==control_state else 1 for i in data.loc[index, :].index])
-# nor = preprocessing.MinMaxScaler()
-# X = nor.fit_transform(X)
-# ### cross validate
-# cv_split = list(model_selection.StratifiedKFold(n_splits=5, random_state = RANDOM_SEED,shuffle=True).split(X, y))
-# ### optimize
-# tune_results = tune_model(X, y, cv_split, model, param_grid, scoring)
-#
-
-
 
 
 ## self model
